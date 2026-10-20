@@ -1,0 +1,21 @@
+{
+  "name": "checkmate-x",
+  "version": "3.1.0",
+  "description": "Checkmate X — Chess Mindprint. Local-first chess app with verified rules, engine analysis and a data-driven mistake profile.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "build": "node scripts/build.js",
+    "start:dist": "CMX_ROOT=dist node scripts/serve.js",
+    "setup:stockfish": "node scripts/setup-stockfish.js",
+    "test": "node --test tests/unit/*.test.js",
+    "test:perft": "node --test tests/unit/perft.test.js",
+    "test:ui": "node tests/ui/ui.test.cjs",
+    "test:all": "node scripts/run-tests.js"
+  },
+  "optionalDependencies": {},
+  "devDependencies": {}
+}
