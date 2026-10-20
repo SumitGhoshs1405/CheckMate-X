@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#262522">
+<meta name="description" content="Checkmate X — play chess, get engine analysis, and learn your own recurring mistakes.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Checkmate X — Chess Mindprint</title>
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip" href="#board">Skip to the board</a>
+<div id="sprite"></div>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><svg viewBox="0 0 100 100" class="piece w"><use href="#pc-n"/></svg></div>
+      <div><h1>Checkmate X</h1><p>Play. Analyze. Learn your patterns.</p></div>
+    </div>
+    <div class="top-actions">
+      <span class="pill" id="enginePill" title="Analysis engine">Engine: starting…</span>
+      <button id="newGameTop" class="primary" type="button">New game</button>
+    </div>
+  </header>
+
+  <main class="layout" id="main">
+    <section class="board-col" aria-label="Game">
+      <div class="player-bar" id="topBar"></div>
+      <div class="board-stage">
+        <div class="evalbar" id="evalBar" hidden role="img" aria-label="Evaluation bar">
+          <div class="evalfill" id="evalFill"></div>
+          <span class="evaltext" id="evalText"></span>
+        </div>
+        <div class="board-wrap"><div id="board"></div></div>
+      </div>
+      <div class="player-bar" id="bottomBar"></div>
+
+      <div class="status" id="status" role="status" aria-live="polite">
+        <span class="status-dot" id="statusDot" aria-hidden="true"></span>
+        <div class="status-body"><strong id="statusTitle">Loading…</strong><span id="statusText"></span></div>
+        <button id="statusAction" type="button" hidden></button>
+      </div>
+
+      <div class="controls">
+        <div class="nav" role="group" aria-label="Move navigation">
+          <button id="navFirst" type="button" aria-label="First position" title="First position (Home)">⏮</button>
+          <button id="navPrev" type="button" aria-label="Previous move" title="Previous move (←)">◀</button>
+          <button id="navNext" type="button" aria-label="Next move" title="Next move (→)">▶</button>
+          <button id="navLast" type="button" aria-label="Latest position" title="Latest position (End)">⏭</button>
+        </div>
+        <div class="actions" role="group" aria-label="Game actions">
+          <button id="undoBtn" type="button" title="Undo your last move">Undo</button>
+          <button id="flipBtn" type="button" title="Flip the board">Flip</button>
+          <button id="hintBtn" type="button" title="Ask the engine for a hint">Hint</button>
+          <button id="resignBtn" type="button">Resign</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side" aria-label="Analysis and history">
+      <section class="panel">
+        <div class="tabs" role="tablist" aria-label="Panels">
+          <button class="tab active" role="tab" id="tab-moves" aria-controls="view-moves" aria-selected="true" data-tab="moves" type="button">Moves</button>
+          <button class="tab" role="tab" id="tab-analysis" aria-controls="view-analysis" aria-selected="false" tabindex="-1" data-tab="analysis" type="button">Analysis</button>
+          <button class="tab" role="tab" id="tab-mind" aria-controls="view-mind" aria-selected="false" tabindex="-1" data-tab="mind" type="button">Mindprint</button>
+          <button class="tab" role="tab" id="tab-train" aria-controls="view-train" aria-selected="false" tabindex="-1" data-tab="train" type="button">Train</button>
+          <button class="tab" role="tab" id="tab-learn" aria-controls="view-learn" aria-selected="false" tabindex="-1" data-tab="learn" type="button">Learn</button>
+        </div>
+        <div id="view-moves" role="tabpanel" aria-labelledby="tab-moves"></div>
+        <div id="view-analysis" role="tabpanel" aria-labelledby="tab-analysis" hidden></div>
+        <div id="view-mind" role="tabpanel" aria-labelledby="tab-mind" hidden></div>
+        <div id="view-train" role="tabpanel" aria-labelledby="tab-train" hidden></div>
+        <div id="view-learn" role="tabpanel" aria-labelledby="tab-learn" hidden></div>
+      </section>
+      <section class="panel quick">
+        <h2 class="section-title">Quick actions</h2>
+        <div class="button-row">
+          <button id="newGameBtn" class="primary" type="button">Start new game</button>
+          <button id="importBtn" type="button">Import PGN</button>
+          <button id="exportBtn" type="button">Export game JSON</button>
+        </div>
+        <p class="sub">Everything runs in your browser. Games and analysis are stored only on this device.</p>
+      </section>
+    </aside>
+  </main>
+  <p class="foot">Checkmate X · rules verified with perft · analysis by the engine named in the header</p>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="srLive" class="sr-only" aria-live="assertive"></div>
+
+<div class="modal-back" id="modalBack" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modal"></div>
+</div>
+
+<script type="module" src="js/ui/app.js"></script>
+<noscript><p style="padding:20px;color:#fff">Checkmate X needs JavaScript to run.</p></noscript>
+</body>
+</html>
